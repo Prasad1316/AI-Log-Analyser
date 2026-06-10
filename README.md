@@ -59,8 +59,10 @@ Open: `http://127.0.0.1:5000`
 
 ## Dashboard Preview
 
-### Overview
-![Dashboard](Screenshot AI/Main Counts.png )
+## 📸 Dashboard Preview
+
+### Dashboard Overview
+![Dashboard Overview](Screenshot%20AI/Main%20Counts.png)
 
 ### Trace Reconstruction
-![Trace Analysis](Screenshot AI/Trace ID.png)
+![Trace Reconstruction](Screenshot%20AI/Trace%20ID.png)
