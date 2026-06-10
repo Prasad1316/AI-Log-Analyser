@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>AI Log Analyzer</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+background:#0f172a;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+h1{
+text-align:center;
+color:#38bdf8;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-top:30px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+text-align:center;
+}
+
+.info{color:#22c55e;}
+.warning{color:#facc15;}
+.error{color:#f97316;}
+.critical{color:#ef4444;}
+
+.chart-box{
+margin-top:40px;
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+}
+
+.trace-box{
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+margin-top:30px;
+}
+
+li{
+list-style:none;
+margin-bottom:10px;
+background:#111827;
+padding:10px;
+border-radius:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🚀 AI Log Analyzer & Root Cause Dashboard</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Logs</h3>
+<h2>{{ total_logs }}</h2>
+</div>
+
+<div class="card">
+<h3>INFO</h3>
+<h2 class="info">{{ counts["INFO"] }}</h2>
+</div>
+
+<div class="card">
+<h3>WARNING</h3>
+<h2 class="warning">{{ counts["WARNING"] }}</h2>
+</div>
+
+<div class="card">
+<h3>ERROR</h3>
+<h2 class="error">{{ counts["ERROR"] }}</h2>
+</div>
+
+<div class="card">
+<h3>CRITICAL</h3>
+<h2 class="critical">{{ counts["CRITICAL"] }}</h2>
+</div>
+
+</div>
+
+<div class="chart-box">
+<canvas id="chart"></canvas>
+</div>
+
+{% for trace_id, trace_data in failed_traces.items() %}
+
+<div class="trace-box">
+
+<h2>🚨 TRACE ID: {{ trace_id }}</h2>
+
+<h3>🧠 Probable Root Cause</h3>
+
+<p style="color:#facc15;">
+{{ trace_data.root_cause }}
+</p>
+
+<h3>📜 Complete Event Timeline</h3>
+
+<ul>
+
+{% for log in trace_data.logs %}
+
+<li>
+
+<b>[{{ log.level }}]</b>
+
+{{ log.timestamp }}
+
+| <span style="color:#38bdf8;">
+{{ log.module }}
+</span>
+
+| {{ log.message }}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+{% endfor %}
+
+<script>
+
+const ctx = document.getElementById('chart');
+
+new Chart(ctx, {
+type: 'bar',
+data: {
+labels: ['INFO','WARNING','ERROR','CRITICAL'],
+datasets: [{
+label: 'Log Counts',
+data: [
+{{ counts["INFO"] }},
+{{ counts["WARNING"] }},
+{{ counts["ERROR"] }},
+{{ counts["CRITICAL"] }}
+]
+}]
+}
+});
+
+</script>
+
+</body>
+</html>
