@@ -56,3 +56,11 @@ Open: `http://127.0.0.1:5000`
 * AI-based anomaly detection
 * Failure prediction using machine learning
 * Docker deployment
+
+## Dashboard Preview
+
+### Overview
+![Dashboard](Screenshot AI/Main Counts.png )
+
+### Trace Reconstruction
+![Trace Analysis](Screenshot AI/Trace ID.png)
